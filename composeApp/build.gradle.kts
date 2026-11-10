@@ -81,6 +81,8 @@ kotlin {
             api(project.dependencies.platform(libs.koin.bom))
             api(libs.koin.android)
             implementation(libs.koin.androidx.compose)
+            // OkHttp is Android/JVM-only; iOS uses its native Ktor/NSURLSession stack.
+            implementation(libs.coil.network.okhttp)
 
             implementation(libs.jetbrains.ui.tooling.preview)
             implementation(libs.constraintlayout.compose)
@@ -123,7 +125,6 @@ kotlin {
             implementation(libs.compose.material3.adaptive)
             implementation(libs.compose.material.ripple)
 
-            implementation(libs.ui.tooling.preview)
 
             // Other module
             api(projects.common)
@@ -147,7 +148,6 @@ kotlin {
 
             // Coil
             api(libs.coil.compose)
-            api(libs.coil.network.okhttp)
             api(libs.kmpalette.core)
             api(libs.kmpalette.network)
             implementation(libs.materialkolor)

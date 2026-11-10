@@ -4,8 +4,8 @@ import com.maxrave.kotlinytmusicscraper.models.response.AudioData
 import com.maxrave.logger.Logger
 import kotlinx.serialization.json.Json
 import kotlinx.datetime.Clock
-import com.maxrave.kotlinytmusicscraper.extension.digestSha1
 import kotlin.io.encoding.Base64
+import okio.ByteString.Companion.toByteString
 
 fun ByteArray.toHex(): String = buildString(size * 2) {
     val digits = "0123456789abcdef"
@@ -16,7 +16,7 @@ fun ByteArray.toHex(): String = buildString(size * 2) {
     }
 }
 
-fun sha1(str: String): String = digestSha1(str.encodeToByteArray()).toHex()
+fun sha1(str: String): String = str.encodeToByteArray().toByteString().sha1().hex()
 
 fun parseCookieString(cookie: String): Map<String, String> =
     cookie

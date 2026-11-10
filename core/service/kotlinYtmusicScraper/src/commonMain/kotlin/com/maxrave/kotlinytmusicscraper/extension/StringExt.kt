@@ -1,12 +1,18 @@
 package com.maxrave.kotlinytmusicscraper.extension
 
-import java.security.MessageDigest
 import kotlin.random.Random
 
 fun String.sha256(): String {
-    val digest = MessageDigest.getInstance("SHA-256")
-    val hash = digest.digest(toByteArray())
-    return hash.fold("", { str, it -> str + "%02x".format(it) })
+    return digestSha256(toByteArray()).toHexString()
+}
+
+private fun ByteArray.toHexString(): String = buildString(size * 2) {
+    val digits = "0123456789abcdef"
+    for (byte in this@toHexString) {
+        val value = byte.toInt() and 0xff
+        append(digits[value ushr 4])
+        append(digits[value and 0x0f])
+    }
 }
 
 fun randomString(length: Int): String {

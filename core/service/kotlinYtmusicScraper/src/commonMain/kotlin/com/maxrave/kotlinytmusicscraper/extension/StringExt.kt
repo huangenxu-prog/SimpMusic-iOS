@@ -1,9 +1,10 @@
 package com.maxrave.kotlinytmusicscraper.extension
 
 import kotlin.random.Random
+import okio.ByteString.Companion.toByteString
 
 fun String.sha256(): String {
-    return digestSha256(toByteArray()).toHexString()
+    return encodeToByteArray().toByteString().sha256().hex()
 }
 
 private fun ByteArray.toHexString(): String = buildString(size * 2) {

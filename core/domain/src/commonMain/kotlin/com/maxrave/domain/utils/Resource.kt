@@ -1,7 +1,6 @@
 package com.maxrave.domain.utils
 
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flow
@@ -105,7 +104,7 @@ suspend fun Flow<NoResponseResource>.collectLatestNoResponseResource(
 
 fun wrapMessageResource(
     successMessage: String,
-    dispatcher: CoroutineDispatcher = Dispatchers.IO,
+    dispatcher: CoroutineDispatcher = ioDispatcher,
     block: suspend () -> Unit,
 ): Flow<LocalResource<String>> =
     flow {
@@ -119,7 +118,7 @@ fun wrapMessageResource(
     }.flowOn(dispatcher)
 
 fun <T> wrapDataResource(
-    dispatcher: CoroutineDispatcher = Dispatchers.IO,
+    dispatcher: CoroutineDispatcher = ioDispatcher,
     block: suspend () -> T,
 ): Flow<LocalResource<T>> =
     flow {
@@ -134,7 +133,7 @@ fun <T> wrapDataResource(
 
 // For one time emit
 fun <T> wrapResultResource(
-    dispatcher: CoroutineDispatcher = Dispatchers.IO,
+    dispatcher: CoroutineDispatcher = ioDispatcher,
     block: suspend () -> Result<T>,
 ): Flow<LocalResource<T>> =
     flow {
@@ -149,7 +148,7 @@ fun <T> wrapResultResource(
     }.flowOn(dispatcher)
 
 suspend fun forceNoReturn(
-    dispatcher: CoroutineDispatcher = Dispatchers.IO,
+    dispatcher: CoroutineDispatcher = ioDispatcher,
     block: suspend () -> Unit,
 ) = withContext(dispatcher) {
     block.invoke()

@@ -33,7 +33,7 @@ internal class MessageCodec(
      * `protoc` emits and what Go's `proto.Marshal` emits, so this is the setting that makes the
      * "same bytes as protoc" claim in Protocol.kt actually true. With `true`, encoding any payload
      * carrying a null message field — `PlaybackActionPayload.trackInfo` on every play, pause, seek
-     * and volume command — threw `'null' is not supported for optional properties in ProtoBuf`
+     * and volume command — threw '`null`' is not supported for optional properties in ProtoBuf'
      * instead, so no transport command could be sent at all.
      */
     private val proto = ProtoBuf { encodeDefaults = false }
@@ -147,13 +147,25 @@ internal class MessageCodec(
 
     private fun gzip(data: ByteArray): ByteArray {
         val sink = Buffer()
-        GzipSink(sink).buffer().use { it.write(data) }
+        val gzipSink = GzipSink(sink).buffer()
+        try {
+            gzipSink.write(data)
+        } finally {
+            // Close explicitly: Okio's multiplatform Closeable is not AutoCloseable on Native,
+            // so Kotlin's common AutoCloseable.use extension cannot be resolved here.
+            gzipSink.close()
+        }
         return sink.readByteArray()
     }
 
     private fun gunzip(data: ByteArray): ByteArray? =
         runCatching {
-            GzipSource(Buffer().apply { write(data) }).buffer().use { it.readByteArray() }
+            val source = GzipSource(Buffer().apply { write(data) }).buffer()
+            try {
+                source.readByteArray()
+            } finally {
+                source.close()
+            }
         }.getOrNull()
 
     companion object {

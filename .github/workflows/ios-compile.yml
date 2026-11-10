@@ -1,10 +1,13 @@
 name: iOS Kotlin compile check
 
 on:
-  push:
-    branches:
-      - ios/enable-kmp-targets
   workflow_dispatch:
+
+# Compilation is always manual. A new approved run supersedes any older run
+# for this branch, preventing duplicate macOS runner usage.
+concurrency:
+  group: ios-kmp-compile-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read

@@ -96,8 +96,6 @@ kotlin {
                 implementation(libs.kotlin.reflect)
                 implementation(libs.ffmpeg.kit.audio)
                 implementation(libs.gson)
-
-                implementation(libs.kotlin.reflect)
                 implementation(libs.pipepipe.extractor)
                 implementation(libs.brave.extractor)
                 implementation(libs.okhttp3.okhttp)
@@ -116,6 +114,7 @@ kotlin {
 
         jvmMain {
             dependencies {
+                implementation(libs.kotlin.reflect)
                 implementation(libs.pipepipe.extractor)
                 implementation(libs.brave.extractor)
                 implementation(libs.okhttp3.okhttp)

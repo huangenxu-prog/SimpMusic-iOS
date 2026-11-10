@@ -4,6 +4,7 @@ import com.maxrave.kotlinytmusicscraper.models.response.AudioData
 import com.maxrave.logger.Logger
 import kotlinx.serialization.json.Json
 import kotlinx.datetime.Clock
+import com.maxrave.kotlinytmusicscraper.extension.digestSha1
 import kotlin.io.encoding.Base64
 
 fun ByteArray.toHex(): String = buildString(size * 2) {

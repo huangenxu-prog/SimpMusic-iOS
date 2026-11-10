@@ -2,6 +2,7 @@ package com.maxrave.data.db
 
 import DatabaseDao
 import androidx.room.AutoMigration
+import androidx.room.ConstructedBy
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
@@ -33,6 +34,7 @@ import com.maxrave.domain.data.entities.YourYouTubePlaylistList
 import com.maxrave.domain.data.entities.analytics.EventArtistEntity
 import com.maxrave.domain.data.entities.analytics.PlaybackEventEntity
 
+@ConstructedBy(MusicDatabaseConstructor::class)
 @Database(
     entities = [
         NewFormatEntity::class, SongInfoEntity::class, SearchHistory::class, SongEntity::class, ArtistEntity::class,
@@ -94,7 +96,7 @@ import com.maxrave.domain.data.entities.analytics.PlaybackEventEntity
         AutoMigration(24, 26),
         AutoMigration(23, 26),
         // 27 adds artist_motion. One new table and nothing else, so Room generates the migration
-        // itself — no spec, and no path by which an existing row can be touched.
+        // itself — no spec, and no path by which existing rows can be touched.
         AutoMigration(26, 27),
         AutoMigration(25, 27),
         AutoMigration(24, 27),

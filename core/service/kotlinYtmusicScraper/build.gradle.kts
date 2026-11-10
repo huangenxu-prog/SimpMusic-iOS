@@ -70,7 +70,6 @@ kotlin {
                 implementation(libs.ktor.client.content.negotiation)
                 implementation(libs.ktor.serialization.kotlinx.json)
                 implementation(libs.kotlinx.serialization.json)
-                implementation(libs.kotlin.reflect)
                 implementation(libs.ktor.client.logging)
                 implementation(libs.ktor.serialization.kotlinx.json)
                 implementation(libs.ktor.serialization.kotlinx.xml)
@@ -94,9 +93,11 @@ kotlin {
                 // commonMain by default and will correctly pull the Android artifacts of any KMP
                 // dependencies declared in commonMain.
                 implementation(libs.koin.android)
+                implementation(libs.kotlin.reflect)
                 implementation(libs.ffmpeg.kit.audio)
                 implementation(libs.gson)
 
+                implementation(libs.kotlin.reflect)
                 implementation(libs.pipepipe.extractor)
                 implementation(libs.brave.extractor)
                 implementation(libs.okhttp3.okhttp)

@@ -1,5 +1,7 @@
 package com.maxrave.kotlinytmusicscraper.cipher
 
+import kotlin.concurrent.Volatile
+
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.timeout
 import io.ktor.client.request.header
